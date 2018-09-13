@@ -21,11 +21,11 @@
     $sql = 'SELECT * FROM `newsletter`';
 
     foreach ($con->query($sql) as $row) {
-        print $row['nome'] . "\t";
-        print $row['email'] . "\t";
-        print $row['tel'] . "\t";
-        print $row['tipo'] . "\n";
-        print '<br/>';
+        print "Nome: " . $row['nome'] . "<br/>";
+        print "Email: " . $row['email'] . "<br/>";
+        print "Telefone: " . $row['tel'] . "<br/>";
+        print "Tipo: " .$row['tipo'] . "<br/>";
+        print '<br/><br/>';
     }
 
     ?>
