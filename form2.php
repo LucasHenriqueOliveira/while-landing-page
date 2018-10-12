@@ -14,6 +14,17 @@ try{
 }
 $data = date('Y-m-d H:i:s');
 $email = $tel = '';
+if(empty($_POST['email_2']) && empty($_POST['tel_2'])) {
+	echo "<script type='text/javascript'>  
+
+    alert('Favor preencher o email e/ou telefone.');
+    
+    history.back();
+
+
+   </script>";
+   exit();
+}
 if($_POST['email_2']) {
    $email = $_POST['email_2'];
 }
