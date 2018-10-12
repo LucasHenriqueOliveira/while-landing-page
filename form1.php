@@ -1,8 +1,8 @@
 <?php
 
 date_default_timezone_set('America/Sao_Paulo');
-error_reporting(E_ALL|E_STRICT);
-ini_set('display_errors', 1);
+//error_reporting(E_ALL|E_STRICT);
+//ini_set('display_errors', 1);
 
 try{
 	$con = new PDO('mysql:host=127.0.0.1;dbname=anjtr452_while','anjtr452_root','lucashen031285');
@@ -13,10 +13,16 @@ try{
 	die();
 }
 $data = date('Y-m-d H:i:s');
-$email = $_POST['email_1'];
-$tel = $_POST['tel_1'];
+$email = $tel = '';
+if($_POST['email_1']) {
+   $email = $_POST['email_1'];
+}
+if($_POST['tel_1']) {
+   $tel = $_POST['tel_1'];
+}
+$nome = $_POST['nome_1'];
 
-$sql = 'INSERT INTO newsletter (`email`,`data`,`tipo`,`tel`) VALUES("'.$email.'","'.$data.'","Whiler","'.$tel.'")';
+$sql = 'INSERT INTO newsletter (`nome`,`email`,`data`,`tipo`,`tel`) VALUES("'.$nome.'", "'.$email.'","'.$data.'","Whiler","'.$tel.'")';
 	
 $query = $con->prepare($sql);
 $query->execute();
@@ -62,13 +68,26 @@ if($email) {
 
         $envia_email = enviarEmail('Whiler', $email, $assunto, $message, 1);
 
+        try{
+
+           $message = "Novo contato cadastrado no site <br /><br />";
+           $message .= "Nome: " . $nome . "<br/>";
+           $message .= "Email: " . $email . "<br/>";
+           $message .= "Telefone: " . $tel . "<br/>";
+           $message .= "Tipo: Whiler <br/>";
+           enviarEmail('Novo Contato', 'contato@while.casa', 'Novo Contato', $message, '');
+
+        } catch (Exception $e){
+           
+        }
+
     } catch (Exception $e){
         $assunto = "Erro";
         $message = "Erro no envio de email boas-vindas para " . $email . "<br /><br />";
         $name = "Erro Email";
-        $email = "lucas@while.life";
+        $email = "lucashen@gmail.com";
 
-        $envia_email = enviarEmail($name, $email, $assunto, $message);
+        $envia_email = enviarEmail($name, $email, $assunto, $message, '');
     }
 }
 ?>

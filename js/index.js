@@ -3,7 +3,6 @@
 var vincent_window = jQuery(window);
 $(function(){
 
-
     /* Menu */
 
    	if (jQuery('.mobile_header').length > 0) {
